@@ -1,0 +1,104 @@
+<html>
+<head>
+   <meta charset = "UTF-8">
+   <title>zoo database</title>
+   
+   <!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<!-- customized css -->
+   <link rel="stylesheet" href="/css/style.css" type="text/css">
+   </head>
+   
+   <body>
+   <div class="container-fluid">
+		<div class="text-center">
+			<h3>Fantasia Zoo Database</h3>
+		</div>
+		<!-- Horizontal Nav Bar -->
+		<nav class="navbar flex-column flex-sm-row justify-content-between align-items-center">
+			<a class="nav-link" href='/'>Home</a>
+			<a class="nav-link" href='/animals'>Animals</a>
+			<a class="nav-link" href='/employees'>Employees</a>				
+			<a class="nav-link active" href='#'>Facilities</a>
+			<a class="nav-link" href='/tours'>Tour</a>
+			<a class="nav-link" href='/animal_employee'>Animal-Employee</a>
+			<a class="nav-link" href='/animal_tour'>Animal-Tour</a>				
+			<a class="nav-link" href='/employee_facility'>Employee-Facility</a>
+			<a class="nav-link" href='/employee_tour'>Employee-Tour</a>
+		</nav>
+	</div>
+  
+	<div class="container-fluid main-body">
+		<div class="text-center">
+			<h5 class="title">Facility Information</h5>
+			Facility category: {{facility_category}}
+		</div>
+		
+		<!-- table to display facilities -->
+		<table class="table table-bordered table-sm text-center table-striped" id="myTable">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Category</th>
+					<th scope="col">Delete</th>
+					<th scope="col">Update</th>
+				</tr>
+			</thead>
+		   
+		   <tbody>
+				{{#each facility}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{name}}</td>
+					<td>{{category}}</td>
+					<td><button class="btn btn-dark btn-sm" value="Delete" onclick="deleteFacility({{id}})">Delete</button></td>
+					<td><a class="btn btn-dark btn-sm" href="/facilities/{{id}}">Update</a></td>
+				</tr>
+                {{/each}}
+			</tbody>
+		</table>
+		<form id='filter_facility' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <fieldset>
+    <label> Filter by category </label>
+    <select id='facility_filter' name="facility_filter"> 
+                                <option value="store">store</option>
+				<option value="building">building</option>
+				<option value="animal enclosure">animal enclosure</option>
+    </select>
+    <input type="button" value="Filter" class="btn btn-outline-dark btn-sm" onclick="filterFacilityByCategory()">
+    </fieldset>
+</form>
+	</div>
+	<br><br>
+ 
+        
+
+	
+	
+	<!-- Form to add a facility -->
+	<form id="addFacility" action="/facilities" method="post">
+		<fieldset class="border p-2">
+			<legend class="w-auto">Add a facility</legend>
+			Name <input type="text" name="name" id="name" required pattern=".*\S+.*" title="This field is required">
+			<br><br>
+			
+			Category
+			<select name="category">
+				<option value="store">store</option>
+				<option value="building">building</option>
+				<option value="animal enclosure">animal enclosure</option>
+			</select>
+			<br><br>
+			<input type="submit" class="btn btn-outline-dark btn-sm" value="Add">
+		   
+		</fieldset>
+	</form>
+	<br><br>
+	
+	
+   </body>   
+</html>

@@ -1,0 +1,129 @@
+<html>
+<head>
+   <meta charset = "UTF-8">
+   <title>zoo database</title>
+   
+   <!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<!-- customized css -->
+   <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+   
+<body>
+
+
+   <div class="container-fluid">
+		<div class="text-center">
+			<h3>Fantasia Zoo Database</h3>
+		</div>
+		<!-- Horizontal Nav Bar -->
+		<nav class="navbar flex-column flex-sm-row justify-content-between align-items-center">
+			<a class="nav-link" href='/'>Home</a>
+			<a class="nav-link active" href="animals">Animals</a>
+			<a class="nav-link" href='/employees'>Employees</a>				
+			<a class="nav-link" href='/facilities'>Facilities</a>
+			<a class="nav-link" href='/tours'>Tour</a>
+			<a class="nav-link" href='/animal_employee'>Animal-Employee</a>
+			<a class="nav-link" href='/animal_tour'>Animal-Tour</a>				
+			<a class="nav-link" href='/employee_facility'>Employee-Facility</a>
+			<a class="nav-link" href='/employee_tour'>Employee-Tour</a>
+		</nav>
+	</div>
+
+  
+	<div class="container-fluid main-body">
+		<div class="text-center">
+			<h5 class="title">Animal Information</h5>
+			Animal class: {{animal_class}}
+		</div>
+		
+		<!-- table to display current animals -->
+		<table class="table table-bordered table-sm text-center table-striped" id="myTable">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Class</th>
+					<th scope="col">Habitat</th>
+					<th scope="col">Facility</th>
+					<th scope="col">Delete</th>
+					<th scope="col">Update</th>
+				</tr>
+			</thead>
+		   
+		   <tbody>
+				{{#each animal}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{name}}</td>
+					<td>{{class}}</td>
+					<td>{{habitat}}</td>
+					<td>{{facility_name}}</td>
+					<td><button class="btn btn-dark btn-sm" value="Delete" onclick="deleteAnimal({{id}})">Delete</button></td>
+					<td><a class="btn btn-dark btn-sm" href="/animals/{{id}}">Update</a></td>
+				</tr>
+                {{/each}}    
+			</tbody>
+		</table>
+		
+		<form id='filter_animal' action='' method=''>
+			<fieldset>
+			<!--- this form does not submit directly, the button handles all the interaction with backend -->
+				<label> Filter by class </label>
+				<select id='animal_filter' name="animal_filter"> 
+					<option value="mammals">mammals</option>
+					<option value="birds">birds</option>
+					<option value="fish">fish</option>
+					<option value="reptiles">reptiles</option>
+					<option value="amphibians">amphibians</option>
+					<option value="anthropods">anthropods</option>
+				</select>
+				<input type="button" class="btn btn-outline-dark btn-sm" value="Filter" onclick="filterAnimalByClass()">
+			</fieldset>
+		</form>
+	</div>
+	<br><br>
+	
+	
+	<!-- Form to add an animal -->
+	<form id="addAnimal" action="/animals" method="post">
+		<fieldset class="border p-2">
+		   <legend class="w-auto">Add an animal</legend>
+		   Name <input type="text" name="name" id="name" required pattern=".*\S+.*" title="This field is required">
+			<br><br>
+			
+			Class
+			<select name="class">
+				<option value="mammals">mammals</option>
+				<option value="birds">birds</option>
+				<option value="fish">fish</option>
+				<option value="reptiles">reptiles</option>
+				<option value="amphibians">amphibians</option>
+				<option value="anthropods">anthropods</option>
+			</select>
+			<br><br>
+			Habitat
+			<select name="habitat">
+				<option value=" "></option>
+				<option value="desert">desert</option>
+				<option value="grassland">grassland</option>
+				<option value="forest">forest</option>
+			</select>
+			<br><br>
+			Facility
+			<select name="facility">
+				{{#each facility}}
+				<option value="{{id}}">{{name}}</option>
+				{{/each}}
+			</select>
+			<br><br>
+			<input type="submit" class="btn btn-outline-dark btn-sm" value="Add">
+		   
+		</fieldset>
+	</form>
+	<br><br>
+   
+</body>   
+</html>

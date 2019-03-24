@@ -1,0 +1,106 @@
+<html>
+<head>
+   <meta charset = "UTF-8">
+   <title>zoo database</title>
+   
+   <!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<!-- customized css -->
+   <link rel="stylesheet" href="/css/style.css" type="text/css">
+   </head>
+   
+   <body>
+   <div class="container-fluid">
+		<div class="text-center">
+			<h3>Fantasia Zoo Database</h3>
+		</div>
+		<!-- Horizontal Nav Bar -->
+		<nav class="navbar flex-column flex-sm-row justify-content-between align-items-center">
+			<a class="nav-link" href='/'>Home</a>
+			<a class="nav-link" href='/animals'>Animals</a>
+			<a class="nav-link" href='/employees'>Employees</a>				
+			<a class="nav-link" href='/facilities'>Facilities</a>
+			<a class="nav-link" href='/tours'>Tour</a>
+			<a class="nav-link active" href='#'>Animal-Employee</a>
+			<a class="nav-link" href='/animal_tour'>Animal-Tour</a>				
+			<a class="nav-link" href='/employee_facility'>Employee-Facility</a>
+			<a class="nav-link" href='/employee_tour'>Employee-Tour</a>
+		</nav>
+	</div>
+  
+	<div class="container-fluid main-body">
+		<div class="text-center">
+			<h5 class="title">Animal-Employee Table</h5>
+			Employee: {{employee_of_interest}}
+		</div>
+		
+		<!-- table to display current animal-employee relationship -->
+		<table class="table table-bordered table-sm text-center table-striped" id="myTable">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Animal ID</th>
+					<th scope="col">Animal Name</th>
+					<th scope="col">Employee ID</th>
+					<th scope="col">Employee Name</th>
+					<th scope="col">Delete</th>
+					<th scope="col">Update</th>
+				</tr>
+			</thead>
+		   
+		   <tbody>
+				{{#each animal_employee}}
+				<tr>
+					<td>{{aid}}</td>
+					<td>{{animal_name}}</td>
+					<td>{{eid}}</td>
+					<td>{{employee_name}}</td>
+					<td><button class="btn btn-dark btn-sm" value="Delete" onclick="deleteAnimalEmployee({{aid}}, {{eid}})">Delete</button></td>
+					<td><a class="btn btn-dark btn-sm" href="/animal_employee/aid/{{aid}}/eid/{{eid}}">Update</a></td>
+				</tr>
+                {{/each}}
+			</tbody>
+		</table>
+	
+	
+        <form id='filter_animal_employee' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <fieldset>
+    <label> Filter animal by employee </label>
+    <select id='animal_employee_filter' name="animal_employee_filter"> 
+				{{#each employee}}
+					<option value='{{eid}}'>{{eid}} {{employee_name}}</option>
+				{{/each}}
+    </select>
+    <input type="button" value="Filter" class="btn btn-outline-dark btn-sm" onclick="filterAnimalByEmployee()">
+    </fieldset>
+</form>
+</div>
+<br><br>
+
+	<!-- Form to add an animal-employee relationship -->
+	<form id="addAnimalEmployee" action="/animal_employee" method="post">
+		<fieldset class="border p-2">
+			<legend class="w-auto">Add an animal-employee relationship</legend>
+			Animal
+			<select name="aid" id="animal_selector">
+				{{#each animal}}
+					<option value='{{aid}}'>{{aid}} {{animal_name}}</option>
+				{{/each}}
+			</select>
+			<br><br>
+			Employee
+			<select name="eid" id="employee_selector">
+				{{#each employee}}
+					<option value='{{eid}}'>{{eid}} {{employee_name}}</option>
+				{{/each}}
+			</select>
+			<br><br>
+			<input type="submit" class="btn btn-outline-dark btn-sm" value="Add">
+		</fieldset>
+	</form>
+	<br><br>
+	
+   </body>   
+</html>

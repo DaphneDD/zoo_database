@@ -1,0 +1,116 @@
+<html>
+<head>
+   <meta charset = "UTF-8">
+   <title>zoo database</title>
+   
+   <!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<!-- customized css -->
+   <link rel="stylesheet" href="/css/style.css" type="text/css">
+   </head>
+   
+   <body>
+   <div class="container-fluid">
+		<div class="text-center">
+			<h3>Fantasia Zoo Database</h3>
+		</div>
+		<!-- Horizontal Nav Bar -->
+		<nav class="navbar flex-column flex-sm-row justify-content-between align-items-center">
+			<a class="nav-link" href='/'>Home</a>
+			<a class="nav-link" href='/animals'>Animals</a>
+			<a class="nav-link" href='/employees'>Employees</a>				
+			<a class="nav-link" href='/facilities'>Facilities</a>
+			<a class="nav-link active" href='#'>Tour</a>
+			<a class="nav-link" href='/animal_employee'>Animal-Employee</a>
+			<a class="nav-link" href='/animal_tour'>Animal-Tour</a>				
+			<a class="nav-link" href='/employee_facility'>Employee-Facility</a>
+			<a class="nav-link" href='/employee_tour'>Employee-Tour</a>
+		</nav>
+	</div>
+  
+	<div class="container-fluid main-body">
+		<div class="text-center">
+			<h5 class="title">Tour Information</h5>
+			Day: {{tour_day}}
+		</div>
+		
+		<!-- table to display tours -->
+		<table class="table table-bordered table-sm text-center table-striped" id="myTable">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Day</th>
+					<th scope="col">Time</th>
+					<th scope="col">Length</th>
+					<th scope="col">Capacity</th>
+					<th scope="col">Delete</th>
+					<th scope="col">Update</th>
+				</tr>
+			</thead>
+		   
+		   <tbody>
+				{{#each tour}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{name}}</td>
+					<td>{{day}}</td>
+					<td>{{time}}</td>
+					<td>{{length}}</td>
+					<td>{{capacity}}</td>
+					<td><button class="btn btn-dark btn-sm" value="Delete" onclick="deleteTour({{id}})">Delete</button></td>
+					<td><a class="btn btn-dark btn-sm" href="/tours/{{id}}">Update</a></td>
+				</tr>
+                {{/each}}
+			</tbody>
+		</table>
+
+       <form id='filter_tour' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <fieldset>
+    <label> Filter by day </label>
+    <select id='tour_filter' name="tour_filter"> 
+                <option value="Monday">Monday</option>
+				<option value="Tuesday">Tuesday</option>
+				<option value="Wednesday">Wednesday</option>
+				<option value="Thursday">Thursday</option>
+				<option value="Friday">Friday</option>
+				<option value="Saturday">Saturday</option>
+				<option value="Sunday">Sunday</option>
+    </select>
+    <input type="button" value="Filter" class="btn btn-outline-dark btn-sm" onclick="filterTourByDay()">
+    </fieldset>
+</form>
+</div>
+<br><br>
+	
+	<!-- Form to add a tour -->
+	<form id="addTour" action="/tours" method="post">
+		<fieldset class="border p-2">
+			<legend class="w-auto">Add a tour</legend>
+			Name <input type="text" name="name" id="name" required pattern=".*\S+.*" title="This field is required">
+			<br><br>
+			
+			Day <select name="day">
+				<option value="Monday">Monday</option>
+				<option value="Tuesday">Tuesday</option>
+				<option value="Wednesday">Wednesday</option>
+				<option value="Thursday">Thursday</option>
+				<option value="Friday">Friday</option>
+				<option value="Saturday">Saturday</option>
+				<option value="Sunday">Sunday</option>
+			</select>
+			<br><br>
+			Time <input type="text" name="time" required pattern=".*\S+.*" title="This field is required"><br><br>
+			Length <input type="number" name="length" required pattern=".*\S+.*" title="This field is required"><br><br>
+			Capacity <input type="number" name="capacity" required pattern=".*\S+.*" title="This field is required"><br><br>
+			<input type="submit" class="btn btn-outline-dark btn-sm" value="Add">
+		</fieldset>
+	</form>
+	<br><br>
+	
+   
+   </body>   
+</html>

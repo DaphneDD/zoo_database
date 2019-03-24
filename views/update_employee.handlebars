@@ -1,0 +1,55 @@
+<html>
+<head>
+   <meta charset = "UTF-8">
+   <title>zoo database</title>
+   
+   <!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<!-- customized css -->
+   <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="text-center">
+			<h3>Fantasia Zoo Database</h3>
+		</div>
+		<!-- Horizontal Nav Bar -->
+		<nav class="navbar flex-column flex-sm-row justify-content-between align-items-center">
+			<a class="nav-link" href='/'>Home</a>
+			<a class="nav-link" href='/animals'>Animals</a>
+			<a class="nav-link employees" href='/employees'>Employees</a>				
+			<a class="nav-link" href='/facilities'>Facilities</a>
+			<a class="nav-link" href='/tours'>Tour</a>
+			<a class="nav-link" href='/animal_employee'>Animal-Employee</a>
+			<a class="nav-link" href='/animal_tour'>Animal-Tour</a>				
+			<a class="nav-link" href='/employee_facility'>Employee-Facility</a>
+			<a class="nav-link" href='/employee_tour'>Employee-Tour</a>
+		</nav>
+	</div>
+	<div class="container-fluid main-body">
+	<!--	<div class="text-center">
+			<h5 class="title">Update {{animal.name}}:</h5>
+		</div>
+	-->
+		<form id="update_employee"> <!-- action="/animals" method="post"> -->
+		<fieldset class="border p-2">
+		<legend class="w-auto">Update information on employee: {{employee.name}} (id: {{employee.id}})</legend>
+			Name <input type="text" name="name" value="{{employee.name}}" required><br><br>
+			Department
+				<select name="department" required>
+					<option value="{{employee.department}}">{{employee.department}}</option>
+					<option disabled>----------</option>
+					<option value="tour">tour</option>
+					<option value="facility">facility</option>
+					<option value="animal">animal</option>
+				</select>
+
+		<input type="submit" class="btn btn-outline-dark btn-sm" value="Update" onclick="updateEmployee({{employee.id}})" >
+		</fieldset>
+		</form>
+	</div>
+</body>
+</html>
